@@ -24,15 +24,15 @@ func init() {
 	}
 }
 
-func Test_HashBlob(t *testing.T) {
+func Test_HashContext(t *testing.T) {
+	ctx := new(HashContext)
 	for i, p := range pairs {
 		data, _ := hex.DecodeString(p.Data)
 		expect, _ := hex.DecodeString(p.Hash)
-		h := HashBlob(data, 0, nil)
+		h := ctx.Hash(data)
 		if !bytes.Equal(h[:], expect) {
 			t.Errorf("Invalid hash %d %x", i, h[:])
 		}
-		break
 	}
 
 }

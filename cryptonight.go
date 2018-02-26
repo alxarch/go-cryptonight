@@ -35,20 +35,22 @@ func (h Hash) IsZero() bool {
 	return h == zeroHash
 }
 
-// HashBlob calculates the cryptonight hash
-func HashBlob(data []byte, variance int, scratchpad []byte) (h Hash) {
+// HashContext allocates a scratchpad for hashing
+type HashContext struct {
+	// Variant int
+	scratchpad [ScratchpadSize]byte
+}
+
+// Hash hashes a blob of data using cryptonight
+func (ctx *HashContext) Hash(data []byte) (h Hash) {
 	if len(data) == 0 {
 		return
-	}
-	if cap(scratchpad) != ScratchpadSize {
-		scratchpad = make([]byte, ScratchpadSize)
 	}
 	C.cn_slow_hash(
 		unsafe.Pointer(&data[0]),
 		C.size_t(len(data)),
 		(*C.char)(unsafe.Pointer(&h[0])),
-		(*C.uint8_t)(unsafe.Pointer(&scratchpad[0])),
+		(*C.uint8_t)(unsafe.Pointer(&ctx.scratchpad[0])),
 	)
 	return
-
 }
