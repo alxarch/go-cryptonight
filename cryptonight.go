@@ -44,6 +44,13 @@ type HashContext struct {
 	scratchpad [ScratchpadSize]byte
 }
 
+func NewHashContext(variant int) *HashContext {
+	ctx := HashContext{
+		Variant: variant,
+	}
+	return &ctx
+}
+
 // Hash hashes a blob of data using cryptonight variant for monero v7
 func (ctx *HashContext) Hash(data []byte) (h Hash, err error) {
 	if len(data) == 0 {
