@@ -44,6 +44,7 @@ type HashContext struct {
 	scratchpad [ScratchpadSize]byte
 }
 
+// NewHashContext creates a new hash context for the specified variant
 func NewHashContext(variant int) *HashContext {
 	ctx := HashContext{
 		Variant: variant,
