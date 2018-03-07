@@ -29,8 +29,10 @@ func Test_HashContext(t *testing.T) {
 	for i, p := range pairs {
 		data, _ := hex.DecodeString(p.Data)
 		expect, _ := hex.DecodeString(p.Hash)
-		h := ctx.Hash(data)
-		if !bytes.Equal(h[:], expect) {
+		h, err := ctx.Hash(data)
+		if err != nil {
+			t.Error(err)
+		} else if !bytes.Equal(h[:], expect) {
 			t.Errorf("Invalid hash %d %x", i, h[:])
 		}
 	}

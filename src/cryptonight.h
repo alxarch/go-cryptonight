@@ -24,6 +24,6 @@ union cn_slow_hash_state {
 };
 #pragma pack(pop)
 
-void cn_slow_hash(const void *data, size_t length, char *hash, uint8_t *scratchpad);
+void cn_slow_hash(const void *data, size_t length, char *hash, uint8_t *scratchpad, int variant);
 
 #define U64(x) ((uint64_t *) (x))
